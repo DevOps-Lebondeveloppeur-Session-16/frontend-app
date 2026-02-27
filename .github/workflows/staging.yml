@@ -7,6 +7,7 @@ on:
 
 env:
   IMAGE_NAME: ${{ vars.DOCKERHUB_USERNAME }}/front-session16
+  VITE_API_URL: https://api.session16.lebondeveloppeur.net
 
 jobs:
     unit-test:
@@ -49,7 +50,7 @@ jobs:
               uses: actions/checkout@v6
 
             - name: build docker image
-              run: docker build -t ${{env.IMAGE_NAME}} .
+              run: docker build -t ${{env.IMAGE_NAME}} --buid-arg VITE_API_URL=${{env.VITE_API_URL}} .
 
             - name: tag image by version
               run: docker tag ${{env.IMAGE_NAME}} ${{env.IMAGE_NAME}}:v${{github.run_number}}
